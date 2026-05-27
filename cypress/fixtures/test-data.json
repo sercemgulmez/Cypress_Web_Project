@@ -1,0 +1,24 @@
+{
+  "searchTerms": {
+    "valid": "laptop",
+    "alternative": "kulaklık",
+    "noRisk": "kitap"
+  },
+  "fakeUser": {
+    "name": "Test User",
+    "email": "test@example.com",
+    "invalidEmail": "invalid-email",
+    "phone": "5000000000",
+    "invalidPhone": "123"
+  },
+  "manualBoundaries": [
+    "captcha",
+    "otp",
+    "sms",
+    "payment",
+    "checkout",
+    "login",
+    "identity",
+    "final submission"
+  ]
+}
