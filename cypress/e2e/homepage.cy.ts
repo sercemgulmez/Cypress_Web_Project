@@ -25,4 +25,25 @@ describe('Homepage public smoke', () => {
   it('main public content is visible', () => {
     homePage.assertMainContentVisible();
   });
+
+  it('page title contains Trendyol', () => {
+    homePage.assertPageTitleContainsTrendyol();
+  });
+
+  it('logo is visible', () => {
+    homePage.assertLogoVisible();
+  });
+
+  it('banner or campaign area is visible when available', () => {
+    homePage.assertBannerOrCarouselVisible();
+  });
+
+  it('category quick links are visible when available', () => {
+    homePage.assertCategoryLinksVisible();
+  });
+
+  it('page stays on trendyol.com domain and is not on a checkout URL', () => {
+    homePage.assertNoUnsafePage();
+    cy.location('hostname').should('include', 'trendyol.com');
+  });
 });

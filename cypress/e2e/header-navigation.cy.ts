@@ -22,4 +22,26 @@ describe('Header and navigation public smoke', () => {
     headerPage.openSafeNavigationItem();
     cy.location('href').should('not.match', /checkout|payment|odeme|siparis|account|hesabim/i);
   });
+
+  it('logo is visible in the header', () => {
+    headerPage.assertLogoVisible();
+  });
+
+  it('cart icon is visible if available', () => {
+    headerPage.assertCartIconVisible();
+  });
+
+  it('favorite icon is visible if available', () => {
+    headerPage.assertFavoriteIconVisible();
+  });
+
+  it('category menu items are visible when available', () => {
+    headerPage.assertCategoryMenuVisible();
+  });
+
+  it('header persists on search results page', () => {
+    cy.safeVisit('/sr?q=laptop');
+    headerPage.assertHeaderVisible();
+    headerPage.assertSearchVisible();
+  });
 });

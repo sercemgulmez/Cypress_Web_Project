@@ -34,4 +34,46 @@ export class SearchResultsPage extends BasePage {
       });
     cy.assertNoRealSubmission();
   }
+
+  assertPaginationVisibleIfAvailable(): void {
+    this.assertVisibleByCandidates([
+      '[class*="pagination"]',
+      '[class*="paging"]',
+      'button[aria-label*="sonraki"]',
+      'a[aria-label*="sonraki"]',
+      /sonraki|ileri|›|»|\d+\s*\/\s*\d+/i
+    ], { optional: true });
+  }
+
+  assertResultCountVisibleIfAvailable(): void {
+    this.assertVisibleByCandidates([
+      '[class*="result-count"]',
+      '[class*="total"]',
+      /\d+\s*(ürün|sonuç|adet)/i
+    ], { optional: true });
+  }
+
+  assertBreadcrumbVisibleIfAvailable(): void {
+    this.assertVisibleByCandidates([
+      '[class*="breadcrumb"]',
+      'nav[aria-label*="breadcrumb"]',
+      /anasayfa\s*[>\/]/i
+    ], { optional: true });
+  }
+
+  assertSortVisibleIfAvailable(): void {
+    this.assertVisibleByCandidates([
+      '[class*="sort"]',
+      'select[class*="sort"]',
+      /önerilen|çok satan|artan|azalan|en yeni/i
+    ], { optional: true });
+  }
+
+  assertFilterPanelVisibleIfAvailable(): void {
+    this.assertVisibleByCandidates([
+      '[class*="filter"]',
+      '[class*="facet"]',
+      /filtre|kategori|marka|fiyat aralığı/i
+    ], { optional: true });
+  }
 }

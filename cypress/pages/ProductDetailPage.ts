@@ -49,4 +49,60 @@ export class ProductDetailPage extends BasePage {
     });
     this.doNotPurchase();
   }
+
+  assertGalleryVisible(): void {
+    this.assertVisibleByCandidates([
+      '[class*="gallery"]',
+      '[class*="image"]',
+      '[class*="photo"]',
+      '[class*="media"]',
+      'img[src*="product"]',
+      /resim|fotoğraf/i
+    ], { optional: true });
+  }
+
+  assertBreadcrumbVisible(): void {
+    this.assertVisibleByCandidates([
+      '[class*="breadcrumb"]',
+      'nav[aria-label*="breadcrumb"]',
+      /anasayfa\s*[>\/]/i
+    ], { optional: true });
+  }
+
+  assertSellerInfoVisible(): void {
+    this.assertVisibleByCandidates([
+      '[class*="seller"]',
+      '[class*="merchant"]',
+      '[class*="brand"]',
+      /satıcı|marka|tarafından/i
+    ], { optional: true });
+  }
+
+  assertDescriptionOrSpecsVisible(): void {
+    this.assertVisibleByCandidates([
+      '[class*="description"]',
+      '[class*="spec"]',
+      '[class*="detail"]',
+      /özellik|açıklama|bilgi|detay/i
+    ], { optional: true });
+  }
+
+  assertShareOrFavoriteButtonVisible(): void {
+    this.assertVisibleByCandidates([
+      'button[class*="favorite"]',
+      'button[class*="share"]',
+      '[aria-label*="favori"]',
+      '[aria-label*="paylaş"]',
+      /favori|paylaş/i
+    ], { optional: true });
+  }
+
+  assertReviewsSectionVisible(): void {
+    this.assertVisibleByCandidates([
+      '[class*="review"]',
+      '[class*="rating"]',
+      '[class*="comment"]',
+      /yorum|değerlendirme|puan/i
+    ], { optional: true });
+  }
 }

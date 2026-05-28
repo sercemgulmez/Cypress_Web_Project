@@ -45,4 +45,42 @@ export class ProductListingPage extends BasePage {
     });
     cy.assertNoRealSubmission();
   }
+
+  assertProductCardHasImageAndNameSignal(): void {
+    cy.get('body').then(($body) => {
+      if (this.boundaryPattern.test($body.text())) {
+        cy.log('Manual-only boundary detected; skipping product card structure assertion.');
+        return;
+      }
+
+      const cardSelectors = ['[class*="p-card"]', '[class*="product-card"]', 'a[href*="-p-"]'];
+      for (const sel of cardSelectors) {
+        const $cards = $body.find(sel).filter(':visible');
+        if ($cards.length) {
+          const $first = $cards.first();
+          const hasImgOrName =
+            $first.find('img').length > 0 ||
+            $first.find('[class*="image"]').length > 0 ||
+            $first.find('[class*="name"]').length > 0 ||
+            $first.text().trim().length > 0;
+          cy.wrap(hasImgOrName).should('be.true');
+          return;
+        }
+      }
+    });
+  }
+
+  assertPaginationVisibleIfAvailable(): void {
+    this.assertVisibleByCandidates([
+      '[class*="pagination"]',
+      '[class*="paging"]',
+      /sonraki|ileri|›|»/i
+    ], { optional: true });
+  }
+
+  openListingByCategoryUrl(categoryPath: string): void {
+    cy.safeVisit(categoryPath);
+    cy.get('body', { timeout: 20000 }).should('be.visible').and('not.be.empty');
+    cy.assertNoRealSubmission();
+  }
 }

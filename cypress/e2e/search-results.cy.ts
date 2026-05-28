@@ -23,4 +23,28 @@ describe('Search results public smoke', () => {
     resultsPage.openFirstSafeProduct();
     cy.location('href').should('not.match', /checkout|payment|odeme|siparis/i);
   });
+
+  it('result count is visible if available', () => {
+    resultsPage.assertResultCountVisibleIfAvailable();
+  });
+
+  it('pagination controls are visible when available', () => {
+    resultsPage.assertPaginationVisibleIfAvailable();
+  });
+
+  it('breadcrumb area is visible if available', () => {
+    resultsPage.assertBreadcrumbVisibleIfAvailable();
+  });
+
+  it('sort controls are visible when available', () => {
+    resultsPage.assertSortVisibleIfAvailable();
+  });
+
+  it('filter panel is visible when available', () => {
+    resultsPage.assertFilterPanelVisibleIfAvailable();
+  });
+
+  it('page title is non-empty on results page', () => {
+    cy.title().should('not.be.empty');
+  });
 });

@@ -37,4 +37,29 @@ describe('Product listing public smoke', () => {
       cy.location('href').should('not.match', /checkout|payment|odeme|siparis/i);
     });
   });
+
+  it('product card has image and name signal', () => {
+    listingPage.assertProductCardHasImageAndNameSignal();
+  });
+
+  it('pagination controls are visible if available', () => {
+    listingPage.assertPaginationVisibleIfAvailable();
+  });
+
+  it('electronics category listing page loads safely', () => {
+    listingPage.openListingByCategoryUrl('/elektronik');
+    cy.get('body').should('be.visible').and('not.be.empty');
+    cy.location('href').should('not.match', /checkout|payment|odeme|siparis/i);
+  });
+
+  it('alternative search term listing is also safe', () => {
+    cy.safeVisit('/');
+    searchPage.searchFor(testData.searchTerms.alternative);
+    searchPage.assertSearchResultsPageLoaded();
+    listingPage.assertListingVisible();
+  });
+
+  it('listing does not navigate to auth or checkout pages', () => {
+    cy.location('href').should('not.match', /checkout|payment|odeme|siparis|hesabim|login/i);
+  });
 });

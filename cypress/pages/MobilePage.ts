@@ -17,4 +17,20 @@ export class MobilePage extends BasePage {
       /menü|kategori|hesabım|sepetim/i
     ], { optional: true });
   }
+
+  assertHamburgerMenuVisibleIfAvailable(): void {
+    this.assertVisibleByCandidates([
+      '[class*="hamburger"]',
+      '[class*="burger"]',
+      '[class*="menu-toggle"]',
+      'button[aria-label*="menu"]',
+      'button[aria-label*="menü"]',
+      /menü/i
+    ], { optional: true });
+  }
+
+  assertFooterVisibleOnMobile(): void {
+    cy.scrollTo('bottom', { duration: 400 });
+    this.assertVisibleByCandidates(['footer', /yardım|gizlilik|iletişim/i], { optional: true });
+  }
 }

@@ -77,4 +77,34 @@ export class SearchPage extends BasePage {
     });
     cy.assertNoRealSubmission();
   }
+
+  typeInSearchBoxAndWait(term: string): void {
+    const searchSelectors = [
+      'input[type="text"]',
+      'input[placeholder*="Ara"]',
+      'input[placeholder*="ara"]',
+      '[class*="search"] input'
+    ];
+
+    cy.handleCookieBannerSafely();
+    cy.get('body').then(($body) => {
+      for (const selector of searchSelectors) {
+        const $input = $body.find(selector).filter(':visible').first();
+        if ($input.length) {
+          cy.wrap($input).clear().type(term);
+          return;
+        }
+      }
+    });
+  }
+
+  assertAutocompleteVisibleIfAvailable(): void {
+    this.assertVisibleByCandidates([
+      '[class*="suggestion"]',
+      '[class*="autocomplete"]',
+      '[class*="dropdown"]',
+      '[class*="result"]',
+      /öneri|tamamla/i
+    ], { optional: true });
+  }
 }

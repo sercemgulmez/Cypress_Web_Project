@@ -35,4 +35,36 @@ export class HomePage extends BasePage {
     cy.scrollTo('bottom', { duration: 300 });
     this.assertVisibleByCandidates(['footer', /yardım|hakkımızda|iletişim|güvenli alışveriş/i], { optional: true });
   }
+
+  assertLogoVisible(): void {
+    this.assertVisibleByCandidates([
+      'a[href="/"] img',
+      '[class*="logo"]',
+      'img[alt*="Trendyol"]',
+      'img[alt*="trendyol"]',
+      /trendyol/i
+    ]);
+  }
+
+  assertBannerOrCarouselVisible(): void {
+    this.assertVisibleByCandidates([
+      '[class*="banner"]',
+      '[class*="carousel"]',
+      '[class*="slider"]',
+      '[class*="campaign"]',
+      /kampanya|fırsat|indirim/i
+    ], { optional: true });
+  }
+
+  assertCategoryLinksVisible(): void {
+    this.assertVisibleByCandidates([
+      '[class*="category"]',
+      'nav a',
+      /kadın|erkek|elektronik|ev|spor|moda/i
+    ], { optional: true });
+  }
+
+  assertPageTitleContainsTrendyol(): void {
+    cy.title().should('match', /trendyol/i);
+  }
 }

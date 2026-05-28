@@ -34,4 +34,28 @@ describe('Product detail public smoke', () => {
   it('login, payment, or checkout boundaries are not crossed', () => {
     detailPage.stopBeforeUnsafeAction();
   });
+
+  it('product image gallery is visible if available', () => {
+    detailPage.assertGalleryVisible();
+  });
+
+  it('breadcrumb navigation is visible if available', () => {
+    detailPage.assertBreadcrumbVisible();
+  });
+
+  it('seller or brand info is visible if available', () => {
+    detailPage.assertSellerInfoVisible();
+  });
+
+  it('product description or specs section is visible if available', () => {
+    detailPage.assertDescriptionOrSpecsVisible();
+  });
+
+  it('share or favorite button is visible if available', () => {
+    detailPage.assertShareOrFavoriteButtonVisible();
+  });
+
+  it('reviews or rating section is visible if available', () => {
+    detailPage.assertReviewsSectionVisible();
+  });
 });
