@@ -10,14 +10,22 @@ export class FooterPage extends BasePage {
     cy.get('body').then(($body) => {
       const safeLink = $body
         .find('a')
-        .filter((_, element) => /yardım|help|gizlilik|çerez|privacy|hakkımızda/i.test(element.innerText))
+        .filter((_, element) => {
+          const text = element.innerText;
+          const href = element.getAttribute('href') ?? '';
+          const isStaticPublicLink = /yardım|help|gizlilik|çerez|privacy|hakkımızda|privacy|cookie/i.test(text);
+          const isInteractiveSupport = /assistant|live_support|canlı|destek/i.test(`${text} ${href}`);
+
+          return isStaticPublicLink && !isInteractiveSupport;
+        })
         .filter(':visible')
         .first();
 
       if (safeLink.length) {
-        cy.wrap(safeLink).invoke('removeAttr', 'target').click({ scrollBehavior: 'center' });
+        const href = safeLink.attr('href');
+        cy.safeVisit(href || '/yardim');
       } else {
-        cy.visit('/yardim');
+        cy.safeVisit('/yardim');
       }
     });
   }

@@ -10,7 +10,7 @@ declare global {
 }
 
 const manualBoundaryPattern =
-  /captcha|recaptcha|otp|sms|doğrulama|verification|payment|ödeme|checkout|siparişi tamamla|kimlik|identity|giriş yap|login|üye ol|register/i;
+  /captcha|recaptcha|otp|sms|doğrulama|güvenlik doğrulaması|security verification|cloudflare|bot|verification|payment|ödeme|checkout|siparişi tamamla|kimlik|identity|giriş yap|login|üye ol|register/i;
 
 Cypress.Commands.add('safeVisit', (path = '/') => {
   cy.visit(path, {

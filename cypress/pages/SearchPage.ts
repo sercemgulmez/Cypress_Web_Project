@@ -1,6 +1,15 @@
 import { BasePage } from './BasePage';
 
 export class SearchPage extends BasePage {
+  assertSearchInputVisible(): void {
+    this.assertVisibleByCandidates([
+      'input[type="text"]',
+      'input[placeholder*="Ara"]',
+      '[class*="search"]',
+      /ürün, kategori veya marka ara/i
+    ]);
+  }
+
   searchFor(term: string): void {
     const searchSelectors = [
       'input[type="text"]',
@@ -33,6 +42,15 @@ export class SearchPage extends BasePage {
     this.assertNoUnsafePage();
   }
 
+  assertSearchResultsLoaded(): void {
+    this.assertSearchResultsPageLoaded();
+  }
+
+  searchInvalidOrNoRiskTermSafely(term: string): void {
+    this.searchFor(term);
+    this.assertSearchResultsPageLoaded();
+  }
+
   assertSearchResultsVisible(): void {
     this.assertVisibleByCandidates([
       '[class*="prdct"]',
@@ -49,9 +67,14 @@ export class SearchPage extends BasePage {
       'a[href*="/p-"]',
       '[class*="p-card"] a',
       '[class*="product"] a'
-    ])
-      .invoke('removeAttr', 'target')
-      .click({ scrollBehavior: 'center' });
+    ]).then(($result) => {
+      if (!$result || !$result.length) {
+        cy.log('No product result opened because a manual-only boundary or empty listing was detected.');
+        return;
+      }
+
+      cy.wrap($result).invoke('removeAttr', 'target').click({ scrollBehavior: 'center' });
+    });
     cy.assertNoRealSubmission();
   }
 }

@@ -96,12 +96,24 @@ npm run cy:verify
 
 - [Test Strategy](docs/ecommerce-cypress-test-strategy.md)
 - [Risk Matrix](docs/risk-matrix.md)
+- [Site Area Model](docs/site-area-model.md)
+- [Full Test Case Catalog](docs/full-test-case-catalog.md)
+- [Automation Candidate Matrix](docs/automation-candidate-matrix.md)
 - [Smoke Suite](docs/smoke-suite.md)
 - [Regression Suite](docs/regression-suite.md)
 - [Manual Boundaries](docs/manual-boundaries.md)
 - [Automation Strategy](docs/automation-strategy.md)
+- [Test Expansion Roadmap](docs/test-expansion-roadmap.md)
 - [Final QA Handoff](docs/final-qa-handoff.md)
 - [Final Execution Results](docs/final-execution-results.md)
+
+## Expanded Test Coverage Strategy
+
+The expanded coverage model documents the public website as a set of safe QA areas: homepage, header navigation, search, search results, categories, listing, product detail, campaigns, filters, sorting, footer/legal, cookie handling, mobile, accessibility smoke, SEO smoke, cross-browser smoke, and visual regression candidates.
+
+The project now includes a 100+ test case catalog and an automation candidate matrix. Public read-only checks are treated as safe automation candidates. Dynamic public interactions are automated with caution. Login, registration, checkout, payment, OTP/SMS, CAPTCHA, identity verification, saved cards, saved addresses, and final order placement remain manual-only on production.
+
+Safe Cypress tests focus on repeatable public smoke/regression coverage. Some flows are intentionally not automated on production because they involve personal data, account state, financial actions, or security controls. Those scenarios should be scaled in a staging or test environment with synthetic users, test payment methods, resettable fixtures, and explicit permission from the site owner.
 
 ## Agent-Assisted QA Workflow
 

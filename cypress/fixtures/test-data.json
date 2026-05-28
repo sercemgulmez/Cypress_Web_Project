@@ -4,6 +4,25 @@
     "alternative": "kulaklık",
     "noRisk": "kitap"
   },
+  "safeSearchTerms": [
+    "laptop",
+    "kulaklık",
+    "kitap",
+    "ayakkabı"
+  ],
+  "categoryKeywords": [
+    "elektronik",
+    "moda",
+    "ev",
+    "spor",
+    "kitap"
+  ],
+  "invalidInputs": {
+    "invalidEmail": "invalid-email",
+    "invalidPhone": "123",
+    "emptySearch": "",
+    "symbolSearch": "%%%test%%%"
+  },
   "fakeUser": {
     "name": "Test User",
     "email": "test@example.com",
@@ -20,5 +39,38 @@
     "login",
     "identity",
     "final submission"
+  ],
+  "boundaryKeywords": [
+    "captcha",
+    "recaptcha",
+    "otp",
+    "sms",
+    "güvenlik doğrulaması",
+    "cloudflare",
+    "payment",
+    "ödeme",
+    "checkout",
+    "login",
+    "register",
+    "identity"
+  ],
+  "mobileViewports": [
+    {
+      "name": "mobile-small",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "tablet",
+      "width": 768,
+      "height": 1024
+    }
+  ],
+  "expectedPublicTexts": [
+    "Trendyol",
+    "Ara",
+    "Sepet",
+    "Yardım",
+    "Gizlilik"
   ]
 }

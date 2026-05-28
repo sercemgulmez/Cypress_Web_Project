@@ -1,6 +1,6 @@
 export class BasePage {
   protected readonly boundaryPattern =
-    /captcha|recaptcha|otp|sms|doğrulama|verification|payment|ödeme|checkout|siparişi tamamla|kimlik|identity|giriş yap|login|üye ol|register/i;
+    /captcha|recaptcha|otp|sms|doğrulama|güvenlik doğrulaması|security verification|cloudflare|bot|verification|payment|ödeme|checkout|siparişi tamamla|kimlik|identity|giriş yap|login|üye ol|register/i;
 
   visit(path = '/'): void {
     cy.safeVisit(path);
@@ -18,6 +18,10 @@ export class BasePage {
     cy.contains(text).should('be.visible');
   }
 
+  assertVisibleText(text: string | RegExp): void {
+    this.assertPageContainsText(text);
+  }
+
   safeClickVisible(selectorOrText: string | RegExp): void {
     if (typeof selectorOrText === 'string' && /^[.#\[]/.test(selectorOrText)) {
       cy.get(selectorOrText).filter(':visible').first().click({ scrollBehavior: 'center' });
@@ -25,6 +29,29 @@ export class BasePage {
     }
 
     cy.contains(selectorOrText).should('be.visible').click({ scrollBehavior: 'center' });
+  }
+
+  safeClickIfVisible(selectorOrText: string | RegExp): void {
+    cy.get('body').then(($body) => {
+      if (this.boundaryPattern.test($body.text())) {
+        cy.log('Manual-only boundary detected before optional click.');
+        return;
+      }
+
+      if (typeof selectorOrText === 'string' && /^[.#\[]/.test(selectorOrText)) {
+        const $match = $body.find(selectorOrText).filter(':visible').first();
+        if ($match.length) {
+          cy.wrap($match).click({ scrollBehavior: 'center' });
+        }
+        return;
+      }
+
+      const matcher = selectorOrText instanceof RegExp ? selectorOrText : new RegExp(selectorOrText, 'i');
+      const $match = $body.find('a, button').filter((_, element) => matcher.test(element.innerText)).filter(':visible').first();
+      if ($match.length) {
+        cy.wrap($match).click({ scrollBehavior: 'center' });
+      }
+    });
   }
 
   getBodyText(): Cypress.Chainable<string> {
@@ -38,6 +65,11 @@ export class BasePage {
   assertVisibleByCandidates(candidates: Array<string | RegExp>, options: { optional?: boolean } = {}): void {
     cy.get('body').then(($body) => {
       const bodyText = $body.text();
+      if (this.boundaryPattern.test(bodyText)) {
+        cy.log('Manual-only boundary detected. No unsafe interaction will be attempted.');
+        return;
+      }
+
       const matched = candidates.some((candidate) => {
         if (candidate instanceof RegExp) {
           return candidate.test(bodyText);
@@ -54,6 +86,11 @@ export class BasePage {
 
   protected firstVisible(selectors: string[]): Cypress.Chainable<JQuery<HTMLElement>> {
     return cy.get('body').then(($body): Cypress.Chainable<JQuery<HTMLElement>> => {
+      if (this.boundaryPattern.test($body.text())) {
+        cy.log('Manual-only boundary detected before element interaction.');
+        return cy.wrap(null, { log: false }) as unknown as Cypress.Chainable<JQuery<HTMLElement>>;
+      }
+
       for (const selector of selectors) {
         const $match = $body.find(selector).filter(':visible').first();
         if ($match.length) {

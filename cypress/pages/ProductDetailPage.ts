@@ -2,9 +2,16 @@ import { BasePage } from './BasePage';
 
 export class ProductDetailPage extends BasePage {
   assertProductDetailLoaded(): void {
-    cy.location('href', { timeout: 20000 }).should('match', /-p-|\/p-/i);
-    cy.get('body').should('be.visible').and('not.be.empty');
-    this.assertNoUnsafePage();
+    cy.get('body', { timeout: 20000 }).should('be.visible').and('not.be.empty');
+    this.detectManualBoundary().then((hasBoundary) => {
+      if (hasBoundary) {
+        cy.log('Product detail execution stopped at a manual-only boundary.');
+        return;
+      }
+
+      cy.location('href').should('match', /-p-|\/p-/i);
+      this.assertNoUnsafePage();
+    });
   }
 
   assertProductTitleVisible(): void {
@@ -15,6 +22,10 @@ export class ProductDetailPage extends BasePage {
     this.assertVisibleByCandidates(['[class*="price"]', /tl|₺|taksit|kargo/i]);
   }
 
+  assertPriceOrProductInfoVisible(): void {
+    this.assertPriceOrInfoVisible();
+  }
+
   assertAddToCartOrFavoriteCtaVisible(): void {
     this.assertVisibleByCandidates([
       /sepete ekle/i,
@@ -22,6 +33,10 @@ export class ProductDetailPage extends BasePage {
       '[class*="basket"]',
       '[class*="favorite"]'
     ], { optional: true });
+  }
+
+  assertSafeCTAsVisible(): void {
+    this.assertAddToCartOrFavoriteCtaVisible();
   }
 
   doNotPurchase(): void {

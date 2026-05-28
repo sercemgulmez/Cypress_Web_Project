@@ -1,15 +1,17 @@
 # Final Execution Results
 
-Execution date: 2026-05-27
+Execution date: 2026-05-28
 
 ## Commands Used
 
 ```bash
 npm install
-npx cypress verify
+env -u ELECTRON_RUN_AS_NODE npx cypress verify
 npx tsc --noEmit
-npm test
+env -u ELECTRON_RUN_AS_NODE npm test
 ```
+
+`ELECTRON_RUN_AS_NODE` was unset during Cypress commands because the local shell has that variable set and it causes Cypress/Electron to start in Node mode.
 
 ## Environment
 
@@ -19,62 +21,63 @@ npm test
 - Platform: macOS darwin-arm64
 - Target base URL: `https://www.trendyol.com`
 
-## Results
+## Install And Verification
 
-Full suite:
+| Command | Result | Notes |
+|---|---|---|
+| `npm install` | Passed | Dependencies were up to date. npm reported 3 moderate audit findings; no forced breaking fix was applied. |
+| `env -u ELECTRON_RUN_AS_NODE npx cypress verify` | Passed | Cypress binary verified successfully. |
+| `npx tsc --noEmit` | Passed | TypeScript project compiled without emit. |
 
-| Metric | Count |
-|---|---:|
-| Specs discovered | 8 |
-| Tests discovered | 24 |
-| Passed | 24 |
-| Failed | 0 |
-| Skipped | 0 |
-
-Smoke suite:
+## Full Suite Result
 
 | Metric | Count |
 |---|---:|
-| Specs discovered | 2 |
-| Tests discovered | 7 |
-| Passed | 7 |
+| Test files executed | 17 |
+| Tests discovered | 47 |
+| Passed | 47 |
 | Failed | 0 |
 | Skipped | 0 |
 
-## Spec Summary
+## Test Files Executed
 
 | Spec | Tests | Passed | Failed | Skipped |
 |---|---:|---:|---:|---:|
+| `accessibility-smoke.cy.ts` | 3 | 3 | 0 | 0 |
+| `boundaries.cy.ts` | 3 | 3 | 0 | 0 |
+| `campaigns.cy.ts` | 2 | 2 | 0 | 0 |
 | `cart-boundary.cy.ts` | 2 | 2 | 0 | 0 |
+| `category-navigation.cy.ts` | 2 | 2 | 0 | 0 |
+| `cookie-banner.cy.ts` | 2 | 2 | 0 | 0 |
+| `filters-sorting.cy.ts` | 3 | 3 | 0 | 0 |
 | `footer-help.cy.ts` | 2 | 2 | 0 | 0 |
+| `header-navigation.cy.ts` | 3 | 3 | 0 | 0 |
 | `homepage.cy.ts` | 4 | 4 | 0 | 0 |
 | `login-boundary.cy.ts` | 3 | 3 | 0 | 0 |
 | `mobile.cy.ts` | 3 | 3 | 0 | 0 |
 | `product-detail.cy.ts` | 4 | 4 | 0 | 0 |
 | `product-listing.cy.ts` | 3 | 3 | 0 | 0 |
+| `search-results.cy.ts` | 3 | 3 | 0 | 0 |
 | `search.cy.ts` | 3 | 3 | 0 | 0 |
+| `seo-smoke.cy.ts` | 2 | 2 | 0 | 0 |
 
-## Notes From Execution
+## Blocked And Manual-Only Boundary Flows
 
-- Initial Cypress verification required access to the Cypress binary cache under the user Library directory. After running `npx cypress verify` with cache write access, Cypress verified successfully.
-- The first full run exposed brittle behavior caused by a public preference modal and hidden navigation links. The framework was updated to close safe overlays, avoid hidden links, and use a public search-results URL fallback when the visible search input is unavailable.
-- The final run passed all specs.
-- The package smoke script `npm run test:smoke` also passed.
-- After connecting the local workspace to `sercemgulmez/Cypress_Web_Project`, the full suite was rerun and passed again: 8 specs, 24 tests, 24 passed.
-- Cypress retained screenshots for assertions that failed on a first retry attempt and then passed. The final run result remained successful.
-- Cypress may print a local warning that it failed to trash existing run results with `spawn Unknown system error -86`. During validation this did not affect test execution or exit codes.
-
-## Known Blocked/Boundary Flows
-
-- Login submission remains manual-only.
-- Registration remains manual-only.
-- CAPTCHA, OTP, SMS, payment, checkout, identity verification, and final order placement remain manual-only.
-- No real account, address, card, payment, or order data was used.
-
-## Production Safety Confirmation
-
-The suite performs public navigation and observation only. It does not submit real forms, attempt real login, create accounts, bypass security controls, complete checkout, or submit payment.
+- Real login submission remains manual-only.
+- Registration submission remains manual-only.
+- OTP/SMS and CAPTCHA or anti-bot verification remain manual-only.
+- Checkout, payment, address entry, card entry, identity verification, and final order placement remain manual-only.
+- Account-specific pages, saved addresses, saved cards, and order history require a staging/test environment.
 
 ## Limitations
 
-Public production pages may change, personalize content, hide elements behind modals, or trigger anti-bot/security behavior. The framework remains valid for safe public smoke/regression demonstration, but full end-to-end regression should be run against a staging or test environment.
+- Public production pages can change without notice and may personalize content.
+- Anti-bot/security behavior can appear during public product/listing navigation. The framework detects this as a boundary and does not bypass it.
+- Cypress may print a local warning about failing to trash previous run results with `spawn Unknown system error -86`; this did not affect the final test exit code.
+- Full purchase funnel coverage should be implemented only in staging with synthetic accounts and test payment rails.
+
+## Recommendations
+
+- Keep production execution limited to light smoke/regression checks.
+- Move login, cart persistence, checkout, payment, address, and order confirmation scenarios to a controlled staging environment.
+- Add reporting and CI only after deciding browser matrix frequency to avoid excessive public-site traffic.
