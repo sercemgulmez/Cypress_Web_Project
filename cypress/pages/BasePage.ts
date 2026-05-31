@@ -1,6 +1,7 @@
+import { BOUNDARY_PATTERN } from '../support/constants';
+
 export class BasePage {
-  protected readonly boundaryPattern =
-    /captcha|recaptcha|otp|sms|doğrulama|güvenlik doğrulaması|security verification|cloudflare|bot|verification|payment|ödeme|checkout|siparişi tamamla|kimlik|identity|giriş yap|login|üye ol|register/i;
+  protected readonly boundaryPattern = BOUNDARY_PATTERN;
 
   visit(path = '/'): void {
     cy.safeVisit(path);
@@ -63,10 +64,9 @@ export class BasePage {
   }
 
   assertVisibleByCandidates(candidates: Array<string | RegExp>, options: { optional?: boolean } = {}): void {
-    cy.get('body').then(($body) => {
+    cy.get('body').should(($body) => {
       const bodyText = $body.text();
       if (this.boundaryPattern.test(bodyText)) {
-        cy.log('Manual-only boundary detected. No unsafe interaction will be attempted.');
         return;
       }
 

@@ -7,6 +7,10 @@ describe('Manual-only boundary documentation smoke', () => {
   const loginPage = new LoginPage();
   const cartPage = new CartPage();
 
+  beforeEach(() => {
+    cy.safeVisit('/');
+  });
+
   it('login boundary is visible but not submitted', () => {
     loginPage.openLoginPageIfVisible();
     boundaryPage.assertLoginBoundary();

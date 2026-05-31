@@ -7,9 +7,11 @@ export class PerformancePage extends BasePage {
   }
 
   assertNoBrokenImages(): void {
-    cy.get('body').then(($body) => {
-      const $images = $body.find('img:visible');
-      cy.log(`Total visible images on page: ${$images.length}`);
+    cy.get('img:visible').each(($img) => {
+      expect(
+        ($img[0] as HTMLImageElement).naturalWidth,
+        `broken image: ${$img.attr('src')}`
+      ).to.be.greaterThan(0);
     });
   }
 

@@ -7,7 +7,7 @@ describe('SEO metadata public smoke', () => {
     cy.title().should('not.be.empty');
     cy.document().then((doc) => {
       const metaCount = doc.querySelectorAll('head meta[name="description"], head meta[property="og:title"]').length;
-      expect(metaCount, 'metadata count is non-negative').to.be.at.least(0);
+      expect(metaCount, 'at least one meta description or og:title tag must be present').to.be.greaterThan(0);
     });
   });
 

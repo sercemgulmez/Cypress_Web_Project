@@ -10,7 +10,7 @@ describe('Product detail public smoke', () => {
   const listingPage = new ProductListingPage();
   const detailPage = new ProductDetailPage();
 
-  beforeEach(() => {
+  before(() => {
     homePage.visitHome();
     searchPage.searchFor(testData.searchTerms.noRisk);
     searchPage.assertSearchResultsPageLoaded();

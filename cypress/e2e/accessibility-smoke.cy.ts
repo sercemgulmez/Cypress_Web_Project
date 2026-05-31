@@ -18,35 +18,26 @@ describe('Accessibility public smoke', () => {
     searchPage.assertSearchInputVisible();
   });
 
-  it('images or public media do not block page visibility', () => {
-    cy.get('body').then(($body) => {
-      const imageCount = $body.find('img').length;
-      expect(imageCount, 'public image count is non-negative').to.be.at.least(0);
-    });
-  });
-
   it('page has a main landmark or content area', () => {
     cy.get('body').then(($body) => {
       const hasMain = $body.find('main').length > 0 || $body.find('[role="main"]').length > 0;
-      cy.log(`Main landmark present: ${hasMain}`);
+      expect(hasMain, 'page has a main landmark').to.eq(true);
     });
   });
 
   it('page has a navigation landmark', () => {
     cy.get('body').then(($body) => {
       const hasNav = $body.find('nav').length > 0 || $body.find('[role="navigation"]').length > 0;
-      cy.log(`Navigation landmark present: ${hasNav}`);
+      expect(hasNav, 'page has a navigation landmark').to.eq(true);
     });
   });
 
-  it('visible images have alt attributes present', () => {
+  it('visible images have alt attributes', () => {
     cy.get('body').then(($body) => {
       const $images = $body.find('img:visible');
       if ($images.length) {
-        const withoutAlt = $images.filter((_, img) =>
-          img.getAttribute('alt') === null
-        ).length;
-        cy.log(`Images without alt attribute: ${withoutAlt} of ${$images.length}`);
+        const withoutAlt = $images.filter((_, img) => img.getAttribute('alt') === null).length;
+        expect(withoutAlt, `${withoutAlt} of ${$images.length} images are missing alt`).to.eq(0);
       }
     });
   });
@@ -54,8 +45,7 @@ describe('Accessibility public smoke', () => {
   it('page has at least one heading element', () => {
     cy.get('body').then(($body) => {
       const headingCount = $body.find('h1, h2, h3').length;
-      cy.log(`Heading elements found: ${headingCount}`);
-      expect(headingCount).to.be.at.least(0);
+      expect(headingCount, 'at least one heading element present').to.be.greaterThan(0);
     });
   });
 
