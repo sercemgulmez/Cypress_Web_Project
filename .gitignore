@@ -8,3 +8,4 @@ cypress/downloads/
 dist/
 coverage/
 *.log
+Cladu.md

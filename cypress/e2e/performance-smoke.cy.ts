@@ -24,7 +24,7 @@ describe('Performance public smoke', () => {
   });
 
   it('secondary search page body text is also meaningful', () => {
-    cy.safeVisit('/sr?q=kulaklık');
+    cy.safeVisit(`/sr?q=${encodeURIComponent('kulaklık')}`);
     cy.get('body', { timeout: 30000 }).should('be.visible');
     perfPage.assertBodyTextLengthAbove(100);
   });
