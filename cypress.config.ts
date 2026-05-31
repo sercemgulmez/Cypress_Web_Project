@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress';
+import { plugin as cypressGrepPlugin } from '@cypress/grep/plugin';
 
 export default defineConfig({
   reporter: 'mochawesome',
@@ -27,6 +28,10 @@ export default defineConfig({
     env: {
       grepFilterSpecs: true,
       grepOmitFiltered: true,
+    },
+    setupNodeEvents(on, config) {
+      cypressGrepPlugin(config);
+      return config;
     },
   }
 });
