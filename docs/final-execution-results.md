@@ -61,6 +61,21 @@ env -u ELECTRON_RUN_AS_NODE npm test
 | `search.cy.ts` | 3 | 3 | 0 | 0 |
 | `seo-smoke.cy.ts` | 2 | 2 | 0 | 0 |
 
+## Additional Specs Added After This Run
+
+The following spec files were added to `cypress/e2e/` after the run above. Results should be updated after the next full execution:
+
+| Spec | Status |
+|---|---|
+| `axe-accessibility.cy.ts` | Pending latest local execution |
+| `brand-page.cy.ts` | Pending latest local execution |
+| `cross-viewport.cy.ts` | Pending latest local execution |
+| `performance-smoke.cy.ts` | Pending latest local execution |
+| `url-routing.cy.ts` | Pending latest local execution |
+| `wishlist-boundary.cy.ts` | Pending latest local execution |
+
+To update: run `npm run report:full` and replace the table above with the new results.
+
 ## Blocked And Manual-Only Boundary Flows
 
 - Real login submission remains manual-only.

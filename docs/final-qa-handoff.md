@@ -34,9 +34,18 @@ The framework does not login, register, submit forms, checkout, pay, enter addre
 - Dynamic selectors and page content may change.
 - Full end-to-end commerce validation requires a staging/test environment.
 
+## Current Coverage
+
+- Accessibility smoke: `accessibility-smoke.cy.ts` and `axe-accessibility.cy.ts` (cypress-axe)
+- Cross-viewport smoke: `cross-viewport.cy.ts`
+- Brand page smoke: `brand-page.cy.ts`
+- URL routing smoke: `url-routing.cy.ts`
+- Wishlist boundary: `wishlist-boundary.cy.ts`
+- Performance smoke: `performance-smoke.cy.ts`
+
 ## Next Steps
 
-- Add accessibility smoke checks with an approved tool.
-- Add visual checks in a controlled environment.
-- Replace flexible selectors with first-party test IDs if available.
-- Add CI workflow once execution cadence is agreed.
+- Replace flexible selectors with first-party test IDs if available from the site owner.
+- Extend coverage to a staging environment with synthetic accounts for login, cart, and checkout flows.
+- Add visual regression checks in a controlled environment.
+- Tune CI run frequency to avoid excessive public-site traffic.

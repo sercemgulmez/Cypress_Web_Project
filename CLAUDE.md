@@ -13,11 +13,21 @@ npm run test:chrome       # headless Chrome
 npm run test:headed       # headed Electron
 npm run test:smoke        # homepage + search only
 npm run cy:verify         # verify Cypress binary
+
+npm run report:full       # run tests → merge JSON → generate HTML report
+npm run report:merge      # merge existing JSON reports
+npm run report:generate   # generate HTML from merged JSON
 ```
 
 Run a single spec:
 ```bash
 npx cypress run --spec 'cypress/e2e/homepage.cy.ts'
+```
+
+Run by tag (uses @cypress/grep):
+```bash
+npm run test:tag -- @smoke
+npm run test:tag -- @boundary
 ```
 
 ## Architecture
