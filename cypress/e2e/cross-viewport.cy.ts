@@ -9,7 +9,7 @@ const viewports: Array<{ name: string; width: number; height: number }> = [
   { name: 'mobile-xs', width: 320, height: 568 },
 ];
 
-describe('Cross-viewport public smoke', () => {
+describe('Cross-viewport public smoke', { tags: ['@regression'] }, () => {
   const homePage = new HomePage();
 
   viewports.forEach(({ name, width, height }) => {

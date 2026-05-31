@@ -1,6 +1,6 @@
 import { HomePage } from '../pages/HomePage';
 
-describe('Homepage public smoke', () => {
+describe('Homepage public smoke', { tags: ['@smoke', '@critical'] }, () => {
   const homePage = new HomePage();
 
   beforeEach(() => {

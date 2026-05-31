@@ -1,6 +1,6 @@
 import { LoginPage } from '../pages/LoginPage';
 
-describe('Login boundary smoke', () => {
+describe('Login boundary smoke', { tags: ['@boundary'] }, () => {
   const loginPage = new LoginPage();
 
   beforeEach(() => {

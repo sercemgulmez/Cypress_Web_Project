@@ -1,7 +1,7 @@
 import { FooterPage } from '../pages/FooterPage';
 import { HomePage } from '../pages/HomePage';
 
-describe('Footer and help/legal public smoke', () => {
+describe('Footer and help/legal public smoke', { tags: ['@regression'] }, () => {
   const homePage = new HomePage();
   const footerPage = new FooterPage();
 

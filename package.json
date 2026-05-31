@@ -9,11 +9,24 @@
     "test:chrome": "cypress run --browser chrome",
     "test:headed": "cypress run --headed",
     "test:smoke": "cypress run --spec 'cypress/e2e/homepage.cy.ts,cypress/e2e/search.cy.ts'",
+    "test:report": "npm run report:clean && cypress run",
+    "test:smoke:report": "npm run report:clean && cypress run --spec 'cypress/e2e/homepage.cy.ts,cypress/e2e/search.cy.ts'",
+    "test:tag": "cypress run --env grep=",
+    "report:clean": "rm -rf cypress/reports",
+    "report:merge": "mochawesome-merge cypress/reports/json/*.json -o cypress/reports/merged.json",
+    "report:generate": "marge cypress/reports/merged.json --reportDir cypress/reports/html --inline",
+    "report:full": "npm run test:report && npm run report:merge && npm run report:generate",
     "cy:verify": "cypress verify"
   },
   "devDependencies": {
+    "@cypress/grep": "^6.0.0",
     "@types/node": "^22.15.21",
+    "axe-core": "^4.11.4",
     "cypress": "^15.16.0",
+    "cypress-axe": "^1.7.0",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.1.1",
+    "mochawesome-report-generator": "^6.3.2",
     "typescript": "^5.8.3"
   }
 }

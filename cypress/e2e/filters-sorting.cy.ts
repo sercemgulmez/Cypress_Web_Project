@@ -2,7 +2,7 @@ import testData from '../fixtures/test-data.json';
 import { FilterSortPage } from '../pages/FilterSortPage';
 import { SearchPage } from '../pages/SearchPage';
 
-describe('Filters and sorting public smoke', () => {
+describe('Filters and sorting public smoke', { tags: ['@regression'] }, () => {
   const searchPage = new SearchPage();
   const filterSortPage = new FilterSortPage();
 

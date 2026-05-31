@@ -1,6 +1,6 @@
 import { WishlistBoundaryPage } from '../pages/WishlistBoundaryPage';
 
-describe('Wishlist and favorites boundary smoke', () => {
+describe('Wishlist and favorites boundary smoke', { tags: ['@boundary'] }, () => {
   const wishlistPage = new WishlistBoundaryPage();
 
   it('favorites icon is visible on homepage if available', () => {

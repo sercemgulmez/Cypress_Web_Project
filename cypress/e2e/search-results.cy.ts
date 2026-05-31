@@ -2,7 +2,7 @@ import testData from '../fixtures/test-data.json';
 import { SearchPage } from '../pages/SearchPage';
 import { SearchResultsPage } from '../pages/SearchResultsPage';
 
-describe('Search results public smoke', () => {
+describe('Search results public smoke', { tags: ['@smoke'] }, () => {
   const searchPage = new SearchPage();
   const resultsPage = new SearchResultsPage();
 

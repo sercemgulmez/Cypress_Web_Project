@@ -3,7 +3,7 @@ import { HomePage } from '../pages/HomePage';
 import { ProductListingPage } from '../pages/ProductListingPage';
 import { SearchPage } from '../pages/SearchPage';
 
-describe('Product listing public smoke', () => {
+describe('Product listing public smoke', { tags: ['@regression'] }, () => {
   const homePage = new HomePage();
   const searchPage = new SearchPage();
   const listingPage = new ProductListingPage();

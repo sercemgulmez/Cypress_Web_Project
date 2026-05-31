@@ -2,7 +2,7 @@ import testData from '../fixtures/test-data.json';
 import { CategoryPage } from '../pages/CategoryPage';
 import { HomePage } from '../pages/HomePage';
 
-describe('Category navigation public smoke', () => {
+describe('Category navigation public smoke', { tags: ['@regression'] }, () => {
   const homePage = new HomePage();
   const categoryPage = new CategoryPage();
 

@@ -1,4 +1,4 @@
-describe('URL routing public smoke', () => {
+describe('URL routing public smoke', { tags: ['@regression'] }, () => {
   it('homepage direct URL loads correctly', () => {
     cy.safeVisit('/');
     cy.location('hostname').should('include', 'trendyol.com');

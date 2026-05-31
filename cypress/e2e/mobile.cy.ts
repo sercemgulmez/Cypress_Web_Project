@@ -3,7 +3,7 @@ import { HomePage } from '../pages/HomePage';
 import { MobilePage } from '../pages/MobilePage';
 import { SearchPage } from '../pages/SearchPage';
 
-describe('Mobile responsive public smoke', () => {
+describe('Mobile responsive public smoke', { tags: ['@regression'] }, () => {
   const homePage = new HomePage();
   const searchPage = new SearchPage();
   const mobilePage = new MobilePage();

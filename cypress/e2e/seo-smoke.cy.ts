@@ -1,7 +1,7 @@
 import testData from '../fixtures/test-data.json';
 import { SearchPage } from '../pages/SearchPage';
 
-describe('SEO metadata public smoke', () => {
+describe('SEO metadata public smoke', { tags: ['@seo'] }, () => {
   it('homepage exposes title or meta description', () => {
     cy.safeVisit('/');
     cy.title().should('not.be.empty');

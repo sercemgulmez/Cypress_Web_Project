@@ -1,6 +1,6 @@
 import { BrandPage } from '../pages/BrandPage';
 
-describe('Brand page public smoke', () => {
+describe('Brand page public smoke', { tags: ['@regression'] }, () => {
   const brandPage = new BrandPage();
 
   it('brand search via URL loads a safe page', () => {

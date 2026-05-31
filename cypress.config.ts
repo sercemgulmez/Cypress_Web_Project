@@ -1,6 +1,13 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'cypress/reports/json',
+    overwrite: false,
+    html: false,
+    json: true,
+  },
   e2e: {
     baseUrl: 'https://www.trendyol.com',
     specPattern: 'cypress/e2e/**/*.cy.ts',
@@ -16,6 +23,10 @@ export default defineConfig({
     allowCypressEnv: false,
     video: false,
     screenshotOnRunFailure: true,
-    chromeWebSecurity: true
+    chromeWebSecurity: true,
+    env: {
+      grepFilterSpecs: true,
+      grepOmitFiltered: true,
+    },
   }
 });

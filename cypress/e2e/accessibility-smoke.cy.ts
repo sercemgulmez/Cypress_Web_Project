@@ -1,7 +1,7 @@
 import { HomePage } from '../pages/HomePage';
 import { SearchPage } from '../pages/SearchPage';
 
-describe('Accessibility public smoke', () => {
+describe('Accessibility public smoke', { tags: ['@a11y'] }, () => {
   const homePage = new HomePage();
   const searchPage = new SearchPage();
 

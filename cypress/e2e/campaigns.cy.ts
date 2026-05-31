@@ -1,7 +1,7 @@
 import { CampaignPage } from '../pages/CampaignPage';
 import { HomePage } from '../pages/HomePage';
 
-describe('Campaign and promotion public smoke', () => {
+describe('Campaign and promotion public smoke', { tags: ['@regression'] }, () => {
   const homePage = new HomePage();
   const campaignPage = new CampaignPage();
 

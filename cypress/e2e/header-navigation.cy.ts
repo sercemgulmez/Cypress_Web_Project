@@ -1,7 +1,7 @@
 import { HeaderPage } from '../pages/HeaderPage';
 import { HomePage } from '../pages/HomePage';
 
-describe('Header and navigation public smoke', () => {
+describe('Header and navigation public smoke', { tags: ['@smoke'] }, () => {
   const homePage = new HomePage();
   const headerPage = new HeaderPage();
 

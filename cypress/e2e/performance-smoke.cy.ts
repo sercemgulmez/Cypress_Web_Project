@@ -1,6 +1,6 @@
 import { PerformancePage } from '../pages/PerformancePage';
 
-describe('Performance public smoke', () => {
+describe('Performance public smoke', { tags: ['@performance'] }, () => {
   const perfPage = new PerformancePage();
 
   it('homepage body content is non-empty and visible within load timeout', () => {

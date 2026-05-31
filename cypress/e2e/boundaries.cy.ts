@@ -2,7 +2,7 @@ import { BoundaryPage } from '../pages/BoundaryPage';
 import { CartPage } from '../pages/CartPage';
 import { LoginPage } from '../pages/LoginPage';
 
-describe('Manual-only boundary documentation smoke', () => {
+describe('Manual-only boundary documentation smoke', { tags: ['@boundary'] }, () => {
   const boundaryPage = new BoundaryPage();
   const loginPage = new LoginPage();
   const cartPage = new CartPage();

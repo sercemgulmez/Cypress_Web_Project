@@ -4,7 +4,7 @@ import { ProductDetailPage } from '../pages/ProductDetailPage';
 import { ProductListingPage } from '../pages/ProductListingPage';
 import { SearchPage } from '../pages/SearchPage';
 
-describe('Product detail public smoke', () => {
+describe('Product detail public smoke', { tags: ['@regression'] }, () => {
   const homePage = new HomePage();
   const searchPage = new SearchPage();
   const listingPage = new ProductListingPage();

@@ -1,6 +1,6 @@
 import { CartPage } from '../pages/CartPage';
 
-describe('Cart and checkout boundary smoke', () => {
+describe('Cart and checkout boundary smoke', { tags: ['@boundary'] }, () => {
   const cartPage = new CartPage();
 
   beforeEach(() => {
